@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插槽的基本使用</title>
+</head>
+
+<body>
+    <!-- solt中显示的 子标签中间的数据 -->
+    <div id="app">
+        <child-element>内存泄漏</child-element>
+        <child-element></child-element>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        Vue.component('child-element', {
+
+            template: `<div>
+                        <strong>Error</strong>
+                        <slot>默认信息</slot>
+                      </div>`
+        });
+        var vm = new Vue({
+            el: '#app',
+        });
+    </script>
+</body>
+
+</html>

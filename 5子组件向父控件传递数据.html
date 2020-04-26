@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子向父传递</title>
+</head>
+
+<body>
+    <div id="app">
+        <div :style="{fontSize:fontSize+ 'px'}">{{infor}}</div>
+        <child-element @larger-font='handle($event)'></child-element>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        Vue.component('child-element', {
+            data: function() {
+                return {
+                    msg: '我是子控件'
+                }
+            },
+            template: `<div>
+                         <span>{{msg}}</span>
+                         <button @click="$emit('larger-font',5)">改变父控件字体</button>
+                         </div>`,
+
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                infor: '我是父控件',
+                fontSize: 10
+            },
+            methods: {
+                handle: function(val) {
+                    this.fontSize += val;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

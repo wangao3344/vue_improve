@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域插槽</title>
+    <style>
+        .current {
+            color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 通过slot-scope属性可以获取子控件传递过来的数据，并可以通过父组件在template标记标签下修改子组件的样式 -->
+        <child-element :fruit='fruit'>
+            <template slot-scope="slotProps">
+                <strong v-if='slotProps.item.id==2' class="current">{{slotProps.item.name}}</strong>
+                <span v-else>{{slotProps.item.name}}</span>
+            </template>
+        </child-element>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        Vue.component('child-element', {
+            props: ['fruit'],
+            template: `
+            <ul>
+                <li :key='item.id' v-for='item in fruit'>
+                    <slot v-bind:item='item'>
+                        {{item.name}}
+                    </slot>
+                </li>
+            </ul>
+            `
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                fruit: [{
+                    name: 'apple',
+                    id: 1,
+                }, {
+                    name: 'orange',
+                    id: 2,
+                }, {
+                    name: 'banana',
+                    id: 3
+                }]
+            }
+        });
+    </script>
+</body>
+
+</html>

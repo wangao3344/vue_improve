@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>具名插槽</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- template在Dom中不会显示 -->
+        <child-element>
+            <template slot="header">
+                <p>我是标题内容</p>
+            </template>
+            <p>我是主要内容1</p>
+            <p>我是主要内容2</p>
+            <template slot="footer">
+                <p>我是底部内容</p>
+            </template>
+        </child-element>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        Vue.component('child-element', {
+            template: `<div>
+                      <header>
+                        <slot name='header'></slot>
+                      </header>
+                      <main>
+                        <slot></slot>
+                      </main>
+                      <footer>
+                        <slot name='footer'></slot>
+                      </footer>
+                      </div>`
+        });
+        var vm = new Vue({
+            el: '#app'
+        });
+    </script>
+</body>
+
+</html>

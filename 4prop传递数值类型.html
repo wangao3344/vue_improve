@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>传递的数据类型</title>
+</head>
+
+<body>
+    <div id='app'>
+        <child-component :str='str' :numbers='numbers' :pbool='pbool' :parr='parr' :pobj='pobj'></child-component>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        var childComponent = {
+            data: function() {
+                return {
+                    msg: '我是子控件',
+                }
+            },
+            props: ['str', 'numbers', 'pbool', 'parr', 'pobj'],
+            template: `<div>
+                {{msg+"====="+str}}
+               <span>{{typeof numbers}}</span>
+               <span>{{pbool}}</span>
+               <ul>
+                 <li :key='index' v-for='(item,index) in parr'>{{item}}</li>
+               </ul>
+               <span>{{pobj.name}}</span>
+               <span>{{pobj.age}}</span>
+                      </div>`,
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                str: '字符串类型',
+                numbers: 11,
+                pbool: true,
+                parr: ['apple', 'orange', 'pear'],
+                pobj: {
+                    name: 'jane',
+                    age: 17,
+                }
+            },
+            components: {
+                'child-component': childComponent,
+            }
+        });
+    </script>
+</body>
+
+</html>
